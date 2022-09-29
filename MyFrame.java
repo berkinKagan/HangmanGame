@@ -1,15 +1,21 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
+import java.util.concurrent.Flow;
 
 import javax.swing.Action;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
 public class Myframe extends JFrame implements Action{
@@ -36,6 +42,9 @@ public class Myframe extends JFrame implements Action{
         exitButton.getCursor();
         exitButton.setRolloverEnabled(true);
         exitButton.addActionListener(this);
+
+        
+        
 
        
         
@@ -70,10 +79,12 @@ public class Myframe extends JFrame implements Action{
     
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+    public void actionPerformed(ActionEvent e)  {
+        
         if (e.getSource() == startButton){
-            System.out.println("poo");
+            this.dispose();
+            new MySecondFrame();
+            
         }
         if (e.getSource()== exitButton){
             this.dispose();
@@ -90,6 +101,9 @@ public class Myframe extends JFrame implements Action{
     public void putValue(String key, Object value) {
         // TODO Auto-generated method stub
         
+    }
+    public static void main(String[] args) {
+        new Myframe();
     }
     
 }
