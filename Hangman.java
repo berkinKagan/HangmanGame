@@ -12,11 +12,12 @@ public class Hangman {
     private StringBuffer usedLetters = new StringBuffer();
     private int numberOfIncorrectTries;
     private int maxAllowedIncorrectTries;
-    private StringBuffer knownSoFar = new StringBuffer();
+    private StringBuffer knownSoFar;
     private String[] wordList = new String[20];
+    private boolean isGameOver = false;
 
     
-    public Hangman() throws FileNotFoundException {
+    Hangman() throws FileNotFoundException {
         maxAllowedIncorrectTries=6;
         chooseSecretWord();
     }
@@ -27,14 +28,18 @@ public class Hangman {
      * @throws FileNotFoundException
      */   
     private StringBuffer chooseSecretWord() throws FileNotFoundException {
-        File hangmanFile = new File("C:/Users/BURAK/Desktop/Hangman/HangmanGame/Hangman Words List.txt");
+        File hangmanFile = new File("wordList.txt");
         Scanner fileScan = new Scanner(hangmanFile);
         int i = 0;        
         while (fileScan.hasNext()) {
             wordList[i]=fileScan.nextLine();
             i++;
         }
-        secretWord = secretWord.append(wordList[(int) (Math.random()*20)]);        
+        secretWord = secretWord.append(wordList[(int) (Math.random()*20)]);
+        this.knownSoFar = new StringBuffer(secretWord.length());
+        for(int j = 0; j < secretWord.length(); j++){
+            this.knownSoFar = this.knownSoFar.append("*");
+        }       
         fileScan.close();
         return secretWord;
     }    
@@ -53,5 +58,56 @@ public class Hangman {
 
     public int getMaxAllowedIncorrectTries() {
         return maxAllowedIncorrectTries;
-    } 
+    }
+    
+    public StringBuffer getKnownSoFar(){
+        return knownSoFar;
+    }
+
+    public int tryThis(String letter){
+        int numOfOccur = 0;
+        letter = letter.toUpperCase();
+        usedLetters = usedLetters.append(letter + ",");
+        String secretLetter;
+        for(int i = 0; i < secretWord.length(); i++){
+            secretLetter = Character.toString(secretWord.charAt(i));
+            if(secretLetter.equals(letter)){
+                knownSoFar = knownSoFar.deleteCharAt(i);
+                knownSoFar = knownSoFar.insert(i, secretLetter);
+                numOfOccur++;
+            }
+        }
+        if(numOfOccur == 0){
+            numberOfIncorrectTries++;
+        }
+        return numOfOccur;
+    }
+
+    public boolean isGameOver(){
+        if(hasLost()){
+            isGameOver = true;
+        }
+        return isGameOver;
+    }
+
+    public boolean hasLost(){
+        if(numberOfIncorrectTries >= maxAllowedIncorrectTries){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static void main(String[] args) throws FileNotFoundException{
+        Hangman den = new Hangman();
+        String harf;
+        Scanner scan = new Scanner(System.in);
+        System.out.println(den.secretWord);
+        System.out.println(den.knownSoFar);
+        harf = scan.nextLine();
+        den.tryThis(harf);
+        System.out.println(den.knownSoFar);
+    }
 }
+
