@@ -26,9 +26,8 @@ public class Hangman {
      * @return secret word (as stringbuffer)
      * @throws FileNotFoundException
      */   
-    private StringBuffer chooseSecretWord() throws FileNotFoundException {
-        File hangmanFile = new File("C:/Users/BURAK/Desktop/Hangman/HangmanGame/Hangman Words List.txt");
-        Scanner fileScan = new Scanner(hangmanFile);
+    private StringBuffer chooseSecretWord() throws FileNotFoundException {        
+        Scanner fileScan = new Scanner(new File("hangman_Words_List.txt"));
         int i = 0;        
         while (fileScan.hasNext()) {
             wordList[i]=fileScan.nextLine();
@@ -53,5 +52,5 @@ public class Hangman {
 
     public int getMaxAllowedIncorrectTries() {
         return maxAllowedIncorrectTries;
-    } 
+    }     
 }
