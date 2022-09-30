@@ -106,8 +106,10 @@ public class Hangman {
         System.out.println(den.secretWord);
         System.out.println(den.knownSoFar);
         harf = scan.nextLine();
+        System.out.println(den.numberOfIncorrectTries);
         den.tryThis(harf);
         System.out.println(den.knownSoFar);
+        
     }
 }
 

@@ -4,7 +4,7 @@ public class App{
         //JPanel panel = new JPanel();
         
         
-        new Myframe();
+        
 
         
         

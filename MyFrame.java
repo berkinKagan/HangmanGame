@@ -12,16 +12,17 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
 import java.util.concurrent.Flow;
 
 import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 
-public class Myframe extends JFrame implements Action{
+public class MyFrame extends JFrame implements Action{
     JButton startButton = new JButton();
     JButton exitButton = new JButton();
-    Myframe(){
+    MyFrame(){
         
         startButton.setText("Start");
         startButton.setBounds(200,300, 100, 30);
@@ -83,7 +84,12 @@ public class Myframe extends JFrame implements Action{
         
         if (e.getSource() == startButton){
             this.dispose();
-            new MySecondFrame();
+            try {
+                new MySecondFrame();
+            } catch (FileNotFoundException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
             
         }
         if (e.getSource()== exitButton){
@@ -103,7 +109,7 @@ public class Myframe extends JFrame implements Action{
         
     }
     public static void main(String[] args) {
-        new Myframe();
+        new MyFrame();
     }
     
 }

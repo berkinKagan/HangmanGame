@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -6,6 +7,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -40,8 +42,11 @@ public class MySecondFrame extends JFrame implements ActionListener {
     JButton buttonZ = new JButton();
     JButton buttonX = new JButton();
     JButton buttonW = new JButton();
+    Hangman hangman = new Hangman();
     
-    MySecondFrame(){
+    MySecondFrame() throws FileNotFoundException{
+        
+
         buttonList.add(buttonA);
         buttonList.add(buttonB);
         buttonList.add(buttonC);
@@ -69,9 +74,38 @@ public class MySecondFrame extends JFrame implements ActionListener {
         buttonList.add(buttonX);
         buttonList.add(buttonW);
 
+        buttonA.setText("A");
+        buttonB.setText("B");
+        buttonC.setText("C");
+        buttonD.setText("D");
+        buttonE.setText("E");
+        buttonF.setText("F");
+        buttonG.setText("G");
+        buttonH.setText("H");
+        buttonI.setText("I");
+        buttonJ.setText("J");
+        buttonK.setText("K");
+        buttonL.setText("L");
+        buttonM.setText("M");
+        buttonN.setText("N");
+        buttonO.setText("O");
+        buttonP.setText("P");
+        buttonQ.setText("Q");
+        buttonR.setText("R");
+        buttonS.setText("S");
+        buttonT.setText("T");
+        buttonU.setText("U");
+        buttonV.setText("V");
+        buttonY.setText("Y");
+        buttonZ.setText("Z");
+        buttonX.setText("X");
+        buttonW.setText("W");
+        
+
+
         
         for (JButton button : buttonList){
-            button.setText("Start");
+            
             //Bounds should be determined.
             button.setFont(new Font("MV Boli", Font.BOLD,20));
             button.setBorder(null);
@@ -80,17 +114,57 @@ public class MySecondFrame extends JFrame implements ActionListener {
             button.setRolloverEnabled(true);
             button.addActionListener(this);
             button.setBackground(Color.WHITE);
+            button.setFocusable(false);
         }
+        JLabel label0 = new JLabel();
+        label0.setBounds(150, 0, 420, 220);
+        label0.setOpaque(true);
+        label0.setText("" + hangman.getKnownSoFar());
+        label0.setFont(new Font("MV Boli", Font.BOLD,22));
+        label0.setBackground(Color.white);
+        JLabel label1 = new JLabel();
+        label1.setBounds(50, 0, 420, 220);
+        label1.setOpaque(true);
+        label1.setText("Score: " + "        ");
+        label1.setFont(new Font("MV Boli", Font.BOLD,22));
+        label1.setBackground(Color.white);
+        JLabel label2 = new JLabel();
+        label2.setBounds(80, 0, 420, 220);
+        label2.setOpaque(true);
+        label2.setText("Left Attend: " + " " + (hangman.getMaxAllowedIncorrectTries() - hangman.getNumOfIncorrectTries()));
+        label2.setFont(new Font("MV Boli", Font.BOLD,22));
+        label2.setBackground(Color.white);
+
+
+        JPanel panel = new JPanel();
+        for(JButton button : buttonList){
+            panel.add(button);
+        }
+        
+        panel.setBounds(0,400,550,180);
+        //panel.setLayout(new BorderLayout());
+        panel.setBackground(Color.WHITE);
+        panel.add(label1);
+        panel.add(label2);
+        
+        
+        
+
+
+        
 
             
         this.setSize(550,600);
         this.setResizable(false);
         this.setVisible(true);
+        this.setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon image = new ImageIcon("indir.png");
         this.setIconImage(image.getImage());
         this.setTitle("HangmanGame");
         this.getContentPane().setBackground(Color.WHITE);
+        this.add(panel);
+        this.add(label0);
         
 
         
@@ -99,7 +173,13 @@ public class MySecondFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+       for(JButton button : buttonList){
+        if(e.getSource() == button){
+            button.setEnabled(false);
+            hangman.tryThis(button.getText());
+            
+        }
+       }
         
     }
 }
