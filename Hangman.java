@@ -10,7 +10,7 @@ public class Hangman {
     private String[] wordList = new String[20]; 
     private int numberOfIncorrectTries;
     private int maxAllowedIncorrectTries;
-    private int MAX_INCORRECT_TRIES = 6;
+    private final int MAX_INCORRECT_TRIES = 6;
 
     public Hangman() throws FileNotFoundException {
         secretWord = chooseSecretWord();
