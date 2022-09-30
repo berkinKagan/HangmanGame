@@ -18,8 +18,9 @@ public class Hangman {
 
     
     Hangman() throws FileNotFoundException {
-        maxAllowedIncorrectTries=6;
+        this.maxAllowedIncorrectTries=6;
         chooseSecretWord();
+        this.numberOfIncorrectTries = 0;
     }
     
     /**
@@ -63,6 +64,7 @@ public class Hangman {
     public StringBuffer getKnownSoFar(){
         return knownSoFar;
     }
+    
 
     public int tryThis(String letter){
         int numOfOccur = 0;
@@ -77,8 +79,9 @@ public class Hangman {
                 numOfOccur++;
             }
         }
+        
         if(numOfOccur == 0){
-            numberOfIncorrectTries++;
+            this.numberOfIncorrectTries++;
         }
         return numOfOccur;
     }
@@ -106,8 +109,9 @@ public class Hangman {
         System.out.println(den.secretWord);
         System.out.println(den.knownSoFar);
         harf = scan.nextLine();
-        System.out.println(den.numberOfIncorrectTries);
         den.tryThis(harf);
+        System.out.println(den.numberOfIncorrectTries);
+        
         System.out.println(den.knownSoFar);
         
     }
