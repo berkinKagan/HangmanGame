@@ -22,7 +22,46 @@ public class Hangman {
         chooseSecretWord();
         this.numberOfIncorrectTries = 0;
     }
+
+    public void playGame() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("The word is:");
+        System.out.println(this.getKnownSoFar() + "\n");
+
+        while(!this.isGameOver()) {
+            System.out.println("Enter a (1)letter or (2)the word to guess");
+            int choice = input.nextInt();
+            while(choice<1 || choice>2) {
+                choice = input.nextInt();
+            }
+            if(choice == 1) {
+                System.out.println("Enter a letter:");
+                String ch = input.next();
+
+                System.out.println("The letter has occurred " + this.tryThis(ch) + " times.");
+                System.out.println("Known so far is:");
+                //System.out.println(this.knownSoFar);
+                System.out.println(this.getKnownSoFar());
     
+            }
+            else if(choice == 2) {
+                System.out.println("Enter your guess:");
+                String guess = input.next();
+                if(this.tryThisWord(guess)) {
+                    System.out.println("You won!");
+                    break;
+                }
+            }
+        }
+        if(this.hasLost()) {
+            System.out.println("You Lost!");
+        }
+        else{
+            System.out.println("You Won!");
+        }
+        input.close();
+    }
     /**
      * it initializes words array from the text file including superhero names and chooses random word from the array
      * @return secret word (as stringbuffer)
@@ -91,6 +130,7 @@ public class Hangman {
             return true;
         }
         else{
+            this.numberOfIncorrectTries++;
             return false;
         }
     }
@@ -113,7 +153,7 @@ public class Hangman {
 
     public static void main(String[] args) throws FileNotFoundException{
         Hangman den = new Hangman();
-        String harf;
+        /*String harf;
         Scanner scan = new Scanner(System.in);
         System.out.println(den.secretWord);
         System.out.println(den.knownSoFar);
@@ -121,7 +161,8 @@ public class Hangman {
         den.tryThis(harf);
         System.out.println(den.numberOfIncorrectTries);
         
-        System.out.println(den.knownSoFar);
+        System.out.println(den.knownSoFar);*/
+        den.playGame();
         
     }
 }
