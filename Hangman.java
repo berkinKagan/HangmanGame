@@ -85,6 +85,15 @@ public class Hangman {
         }
         return numOfOccur;
     }
+    public boolean tryThisWord(String word){
+        String secret = this.secretWord.toString();
+        if(word.equalsIgnoreCase(secret)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     public boolean isGameOver(){
         if(hasLost()){
