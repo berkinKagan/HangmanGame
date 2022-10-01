@@ -40,6 +40,8 @@ public class Hangman {
                 String ch = input.next();
 
                 System.out.println("The letter has occurred " + this.tryThis(ch) + " times.");
+                System.out.print("Tries remain: ");
+                System.out.println(this.maxAllowedIncorrectTries - this.getNumOfIncorrectTries());
                 System.out.println();
                 System.out.println("Known so far is:");
                 System.out.println(this.getKnownSoFar());
@@ -55,6 +57,8 @@ public class Hangman {
         }
         if(this.hasLost()) {
             System.out.println("You Lost!");
+            System.out.print("The word was: ");
+            System.out.println(this.secretWord);
         }
         else{
             System.out.println("You Won!");
@@ -141,21 +145,6 @@ public class Hangman {
 
     public boolean hasLost(){
         return numberOfIncorrectTries >= maxAllowedIncorrectTries;
-    }
-
-    public static void main(String[] args) throws FileNotFoundException{
-        Hangman den = new Hangman();
-        /*String harf;
-        Scanner scan = new Scanner(System.in);
-        System.out.println(den.secretWord);
-        System.out.println(den.knownSoFar);
-        harf = scan.nextLine();
-        den.tryThis(harf);
-        System.out.println(den.numberOfIncorrectTries);
-        
-        System.out.println(den.knownSoFar);*/
-        den.playGame();
-        
     }
 }
 
