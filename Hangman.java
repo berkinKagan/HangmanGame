@@ -30,7 +30,7 @@ public class Hangman {
         System.out.println(this.getKnownSoFar() + "\n");
 
         while(!this.isGameOver()) {
-            System.out.println("Enter a (1)letter or (2)the word to guess");
+            System.out.println("Enter a (1) letter or (2) the word to guess");
             int choice = input.nextInt();
             while(choice<1 || choice>2) {
                 choice = input.nextInt();
@@ -40,8 +40,8 @@ public class Hangman {
                 String ch = input.next();
 
                 System.out.println("The letter has occurred " + this.tryThis(ch) + " times.");
+                System.out.println();
                 System.out.println("Known so far is:");
-                //System.out.println(this.knownSoFar);
                 System.out.println(this.getKnownSoFar());
     
             }
@@ -49,7 +49,6 @@ public class Hangman {
                 System.out.println("Enter your guess:");
                 String guess = input.next();
                 if(this.tryThisWord(guess)) {
-                    System.out.println("You won!");
                     break;
                 }
             }
@@ -75,7 +74,7 @@ public class Hangman {
             wordList[i]=fileScan.nextLine();
             i++;
         }
-        secretWord = secretWord.append(wordList[(int) (Math.random()*20)]);
+        secretWord = secretWord.append(wordList[(int) (Math.random()*21)]);
         this.knownSoFar = new StringBuffer(secretWord.length());
         for(int j = 0; j < secretWord.length(); j++){
             this.knownSoFar = this.knownSoFar.append("*");
@@ -127,6 +126,7 @@ public class Hangman {
     public boolean tryThisWord(String word){
         String secret = this.secretWord.toString();
         if(word.equalsIgnoreCase(secret)){
+            isGameOver = true;
             return true;
         }
         else{
@@ -136,19 +136,11 @@ public class Hangman {
     }
 
     public boolean isGameOver(){
-        if(hasLost()){
-            isGameOver = true;
-        }
-        return isGameOver;
+        return numberOfIncorrectTries >= maxAllowedIncorrectTries || this.secretWord.toString().equals(this.knownSoFar.toString()); 
     }
 
     public boolean hasLost(){
-        if(numberOfIncorrectTries >= maxAllowedIncorrectTries){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return numberOfIncorrectTries >= maxAllowedIncorrectTries;
     }
 
     public static void main(String[] args) throws FileNotFoundException{
